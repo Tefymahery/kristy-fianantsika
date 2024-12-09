@@ -21,14 +21,14 @@ export default function NotFoundPage() {
             404 - Page Not Found
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 mt-4">
-            Oups! Il semble que la page que vous recherchez n'existe pas.
+            Oups! Il semble que la page que vous recherchez n&apos;existe pas.
           </p>
           <div className="mt-6">
             <ToHome />
             <p className="mt-4 text-gray-600 dark:text-gray-300">
               Ou, vous pouvez <Link href="/contact" className="text-blue-600 hover:text-blue-500">
   Nous contacter
-</Link> si vous avez besoin d'aide.
+</Link> si vous avez besoin d&apos;aide.
             </p>
           </div>
         </div>
