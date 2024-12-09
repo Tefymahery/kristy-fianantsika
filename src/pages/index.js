@@ -25,7 +25,7 @@ export default function Home() {
       .then((response) => setArticles(response.data))
       .catch((error) => console.error(error))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [API_URL]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900">

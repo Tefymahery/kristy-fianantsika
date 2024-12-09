@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
     }
   
     setLoading(false);  // Terminer le chargement ici après avoir vérifié l'état de l'utilisateur
-  }, [router.pathname]); // On ne veut exécuter ce `useEffect` que quand le chemin change
+  }, [router, router.pathname]); // On ne veut exécuter ce `useEffect` que quand le chemin change
   
   
   
