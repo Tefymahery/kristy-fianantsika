@@ -17,7 +17,7 @@ exports.createCategorie = async (req, res) => {
       articleCount: req.body.articleCount,
       parentCategory: req.body.parentCategory || null,
       isActive: req.body.isActive || true, // Valeur par défaut : actif
-      icon: req.body.icon || 'default-icon' // Valeur par défaut pour l'icône
+      icon: req.body.icon || 'Bars4Icon' // Valeur par défaut pour l'icône
     });
 
     await newCategorie.save();
@@ -120,6 +120,29 @@ exports.deleteAllCategories = async (req, res) => {
   } catch (error) {
     console.error("Erreur backend : ", error.message); // Log l'erreur
     res.status(400).json({ message: error.message });
+  }
+};
+
+// Récupérer uniquement les catégories racines et les formater
+exports.getRootCategories = async (req, res) => {
+  try {
+    const rootCategories = await Categorie.find({ parentId: null });
+
+    // Formatage des catégories
+    const formattedCategories = rootCategories.map((category) => ({
+      id: category._id.toString(), // Conversion de l'ObjectId en string
+      title: category.name, // Renommage de `name` en `title`
+      description: category.description || '', // Description par défaut si absente
+      icon: category.icon || 'DefaultIcon', // Icône par défaut si absente
+      articleCount: category.articleCount || 0, // Nombre d'articles par défaut à 0
+    }));
+
+    res.status(200).json(formattedCategories);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Erreur lors de la récupération des catégories racines',
+      error,
+    });
   }
 };
 

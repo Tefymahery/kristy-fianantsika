@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
 import React from "react";
 import Link from 'next/link';  // Utilise Next.js Link pour la navigation interne
+import RootCategories from "./RootCartegories";
 import {
   Navbar,
   Collapse,
@@ -34,6 +36,7 @@ import {
   TagIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
+import Root from "postcss/lib/root";
 
 const navContactUsItems = [
   {
@@ -45,7 +48,7 @@ const navContactUsItems = [
   {
     link : "/#contact-us",
     title : "Contact Us",
-    description : "Need more help, fill the form",
+    description : "Need more help, fill the form. Need more help, fill the form. Need more help, fill the form",
     icon :  SquaresPlusIcon, //icon question pour de preference
   },
   {
@@ -82,8 +85,10 @@ const navListCategoryItems = [
   // ainsi de suite
 ];
 
+
 // fonction pour la liste de Categorie
 function NavListMenuCategory() {
+  const [categories, setCategories] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = navListCategoryItems.map(
@@ -169,13 +174,14 @@ function NavListMenuCategory() {
           </Typography>
         </MenuHandler>
         <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
-          <ul className="grid grid-cols-3 gap-y-2 outline-none outline-0">
-            {renderItems}
+          <ul className="flex items-center gap-3 outline-none outline-0">
+            {/* {renderItems} */}
+            <RootCategories />
           </ul>
         </MenuList>
       </Menu>
       <div className="block lg:hidden">
-        <Collapse open={isMobileMenuOpen}>{renderItems}</Collapse>
+        <Collapse open={isMobileMenuOpen}><RootCategories /></Collapse>
       </div>
     </React.Fragment>
   );
@@ -313,7 +319,7 @@ function NavListMain() {
 
       <Typography
         as="a"
-        href="/"
+        href="/articles/"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -341,6 +347,7 @@ function NavListMain() {
       </Typography>
 
       <NavListMenuCategory />
+      {/* <RootCategories /> */}
       <NavListMenuContactUs />
       
       </List>

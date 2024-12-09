@@ -5,6 +5,14 @@ import FooterAdmin from "@/components/admin/FooterAdmin";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+import { 
+  FaTrash, 
+  FaUndo, 
+  FaPlus,
+  FaPen  
+} from 'react-icons/fa'; // Utilisation de react-icons pour l'icône
+
 import {
   Button,
   Card,
@@ -18,6 +26,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Tooltip,
 } from "@material-tailwind/react";
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/users`;
@@ -126,19 +135,19 @@ function UserManagement() {
         <Card className="shadow-lg">
           <CardHeader className="bg-gray-100 dark:bg-gray-800 p-6 rounded-t-md">
             <div className="flex justify-between items-center">
-              <h3 className="text-xl font-semibold">Gestion des utilisateurs</h3>
+              <h3 className="text-xl font-semibold dark:text-white">Gestion des utilisateurs</h3>
               <Button onClick={() => {
                 resetForm();
                 setShowDialog(true);
-              }}>
-                Ajouter un utilisateur
+              }} className="mb-4 flex items-center gap-2">
+                <FaPlus />Ajouter un utilisateur
               </Button>
             </div>
           </CardHeader>
           <CardBody className="p-6">
             <table className="table-auto w-full border-collapse">
               <thead>
-                <tr className="bg-gray-50 dark:bg-gray-700 text-left">
+                <tr className="bg-gray-50 dark:bg-gray-700 text-left dark:text-white">
                   <th className="px-4 py-2">Nom</th>
                   <th className="px-4 py-2">Email</th>
                   <th className="px-4 py-2">Rôle</th>
@@ -167,16 +176,22 @@ function UserManagement() {
                     </td>
 
                     <td className="px-4 py-2 space-x-2">
-                      <Button size="sm" onClick={() => handleEdit(user)}>
-                        Modifier
+                      <Tooltip content="Modifier utilisateur">
+                      <Button size="sm" onClick={() => handleEdit(user)} className="">
+                        <FaPen />
                       </Button>
+                      </Tooltip>
+
+                      <Tooltip content={`Supprimer un utilisateur : ${user.name}`} className="bg-red-500 text-white">
                       <Button
                         size="sm"
                         color="red"
+                        className=""
                         onClick={() => confirmDelete(user._id)}
-                      >
-                        Supprimer
+                       >
+                         <FaTrash />
                       </Button>
+                      </Tooltip>
                     </td>
                   </tr>
                 ))}

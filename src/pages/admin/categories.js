@@ -3,9 +3,17 @@ import withAdminAuth from '@/components/admin/withAdminAuth';
 import NavbarAdmin from '@/components/admin/NavbarAdmin';
 import FooterAdmin from '@/components/admin/FooterAdmin';
 import axios from 'axios';
+import { 
+  FaTrash, 
+  FaUndo, 
+  FaPlus,
+  FaPen  
+} from 'react-icons/fa'; // Utilisation de react-icons pour l'icône
+
 import {
   Button,
   Input,
+  IconButton,
   Switch,
   Dialog,
   DialogHeader,
@@ -15,6 +23,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Tooltip,
   Typography,
   Select,
   Option
@@ -93,15 +102,54 @@ const AdminCategories = () => {
         });
     };
 
+
+      // Fonction pour réinitialiser la catégorie parente d'une catégorie à null
+  const resetParentCategory = (categoryId) => {
+    axios.put(`${API_URL}/${categoryId}`, { parentCategory: null })
+      .then(response => {
+        const updatedCategories = categories.map(category =>
+          category._id === categoryId ? response.data : category
+        );
+        setCategories(updatedCategories);
+        setEditCategory(null); // Réinitialiser l'état de modification
+        alert('La catégorie parente a été réinitialisée');
+      })
+      .catch(error => console.error('Erreur lors de la réinitialisation de la catégorie parente:', error));
+  };
+  
+
+    // Fonction de triage de la categorie
+    const sortCategories = (categories) => {
+      const sortedCategories = [];
+    
+      // Fonction pour trier les catégories récursivement
+      const addCategory = (parentId = null, depth = 0) => {
+        categories
+          .filter(category => category.parentCategory === parentId)
+          .forEach(category => {
+            sortedCategories.push({ ...category, depth });
+            addCategory(category._id, depth + 1); // Appel récursif pour ajouter les sous-catégories
+          });
+      };
+    
+      addCategory(); // Commencer le tri
+      return sortedCategories;
+    };
+    
+    const sortedCategories = sortCategories(categories);
+
+
   // Fonction récursive pour afficher les catégories avec leur hiérarchie
   const renderCategoryTree = (parentId = null, depth = 0) => {
     return categories
       .filter(category => category.parentCategory === parentId)
       .map(category => (
-        <div key={category._id} className={`ml-${depth * 4} mb-2`}>
+        <div key={category._id} className={"ml-${depth * 4} mb-2"}>
           <Typography variant="h6" className="text-gray-700 font-semibold">{category.name}</Typography>
-          <div className="flex justify-between items-center">
-            <Button
+          
+          <div className="flex  gap-4 items-end">
+            <Tooltip content="Modifier la categorie">
+            <IconButton
               size="sm"
               color="yellow"
               onClick={() => {
@@ -109,9 +157,25 @@ const AdminCategories = () => {
                 setShowDialog(true);
               }}
             >
-              Modifier
-            </Button>
-            <Button
+              <FaPen />
+              
+            </IconButton>
+            </Tooltip>
+            {/* Bouton pour réinitialiser la catégorie parente */}
+               <Tooltip content="Reinitiliser la categorie parente à 'Aucune' ">
+                <IconButton
+                  color="amber" 
+                   size="sm"
+                   onClick={() => 
+                    resetParentCategory(category._id)
+                    }
+                   >
+                  <FaUndo />
+               
+                </IconButton>
+              </Tooltip>
+            <Tooltip content="Supprimer la categorie">
+            <IconButton
               size="sm"
               color="red"
               onClick={() => {
@@ -119,8 +183,9 @@ const AdminCategories = () => {
                 setShowDeleteDialog(true);
               }}
             >
-              Supprimer
-            </Button>
+              <FaTrash />
+            </IconButton>
+            </Tooltip>
           </div>
           {/* Appel récursif pour les sous-catégories */}
           {renderCategoryTree(category._id, depth + 1)}
@@ -129,27 +194,33 @@ const AdminCategories = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 mt-4">
       <NavbarAdmin />
-      <div className="flex flex-1 flex-col p-4">
-        <Typography variant="h4" color="blue-gray" className="mb-4">
-          Gestion des Catégories
-        </Typography>
 
+      <div className="p-8 space-y-8">
+      <Card className="shadow-lg">
+
+      <CardHeader className="bg-gray-100 dark:bg-gray-800 p-6 rounded-t-md">
+        <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold dark:text-white">Gestion des Catégories</h3>
+     
         {/* Bouton pour créer une nouvelle catégorie */}
-        <Button color="blue" onClick={() => { setShowDialog(true); setEditCategory(null); }} className="mb-4">
-          Créer une catégorie
+        <Button color="blue" onClick={() => { setShowDialog(true); setEditCategory(null); }} className="mb-4 flex items-center gap-2">
+          <FaPlus />Créer une catégorie
         </Button>
 
          {/* Bouton pour vider la base de données des catégories */}
-        <Button color="red" onClick={() => setShowClearDialog(true)} className="mb-4">
-          Vider toutes les catégories
+        <Button color="red" onClick={() => setShowClearDialog(true)} className="mb-4 flex items-center gap-2">
+          <FaTrash />Vider toutes les catégories
         </Button>
-
+        </div>
+      </CardHeader>
+      <CardBody>
         {/* Liste des catégories */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {renderCategoryTree()}
         </div>
+      </CardBody>
 
         {/* Dialog de confirmation de suppression de toutes les catégories */}
         <Dialog open={showClearDialog} handler={setShowClearDialog}>
@@ -191,16 +262,26 @@ const AdminCategories = () => {
               value={editCategory ? editCategory.articleCount : newCategory.articleCount}
               onChange={(e) => editCategory ? setEditCategory({ ...editCategory, articleCount: e.target.value }) : setNewCategory({ ...newCategory, articleCount: e.target.value })}
             />
+
             <Select
               label="Catégorie parente"
-              value={editCategory ? editCategory.parentCategory : newCategory.parentCategory}
+              color="purple" 
+              variant="outlined"
+              value={editCategory ? (editCategory.parentCategory || '') : (newCategory.parentCategory || '')} // Force la valeur à '' si parentCategory est null
               onChange={(value) => editCategory ? setEditCategory({ ...editCategory, parentCategory: value }) : setNewCategory({ ...newCategory, parentCategory: value })}
             >
               <Option value={null}>Aucune</Option>
-              {categories.filter(c => c._id !== (editCategory ? editCategory._id : null)).map(category => (
-                <Option key={category._id} value={category._id}>{category.name}</Option>
-              ))}
+              {sortedCategories
+                .filter(c => c._id !== (editCategory ? editCategory._id : null)) // Ne pas inclure la catégorie en cours d'édition
+                .map(category => (
+                  <Option key={category._id} value={category._id}>
+                    {`${' '.repeat(category.depth * 2)}${category.name}`} {/* Ajout d'indentation */}
+                  </Option>
+                ))}
             </Select>
+
+
+
             {/* Option pour l'activation/désactivation */}
             <div className="flex items-center">
               <Switch
@@ -235,6 +316,7 @@ const AdminCategories = () => {
             </Button>
           </DialogFooter>
         </Dialog>
+      </Card>
       </div>
       <FooterAdmin />
     </div>

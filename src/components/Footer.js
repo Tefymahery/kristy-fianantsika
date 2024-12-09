@@ -1,4 +1,5 @@
 import { Typography } from "@material-tailwind/react";
+import Link from "next/link";
 
 const SITEMAP = [
   {
@@ -55,7 +56,10 @@ export default function FooterWithSitemap() {
             className="mb-4 text-center font-normal dark:text-gray-400 md:mb-0"
           >
             &copy; {currentYear} <a href="https://material-tailwind.com/">Material Tailwind</a>. All
-            Rights Reserved.
+            Rights Reserved. 
+            <Link href="/admin/" passHref target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                Admin
+            </Link>
           </Typography>
           <div className="flex gap-4 text-black dark:text-white sm:justify-center">
             <Typography as="a" href="#" className="opacity-80 transition-opacity hover:opacity-100">

@@ -6,6 +6,7 @@ const categorieController = require('../controllers/categoryController');
 // Routes pour les catégories
 router.post('/', categorieController.createCategorie);
 router.get('/', categorieController.getAllCategories);
+router.get('/root-categories', categorieController.getRootCategories);
 router.get('/:id', categorieController.getCategoryById);
 router.put('/:id', categorieController.updateCategory);
 router.delete('/all', categorieController.deleteAllCategories); // Spécifique en premier // Route pour vider toutes les catégories

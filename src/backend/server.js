@@ -8,6 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const authMiddleware = require('./middleware/authMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const articleRoutes = require('./routes/articleRoutes');
 
 
 dotenv.config();
@@ -32,6 +33,9 @@ app.use('/api/users', userRoutes);  // Utilisation des routes des utilisateurs
 
 // Utilisation des routes des utilisateurs
 app.use('/api/categories', categoryRoutes);  // Utilisation des routes des utilisateurs
+
+// Utilisation des routes des utilisateurs
+app.use('/api/articles', articleRoutes);  // Utilisation des routes des utilisateurs
 
 
 // Démarrage du serveur

@@ -1,16 +1,10 @@
 import { Button, Card, Typography } from "@material-tailwind/react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import ContactUs from "@/components/ContactUs";
-import RootCategories from "@/components/RootCartegories";
-import CarouselB from "../components/Carousel";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-// Charger Faq dynamiquement
-const Faq = dynamic(() => import("../components/Faq"), { ssr: false });
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
@@ -32,15 +26,14 @@ export default function Home() {
       {/* Navbar */}
       <Navbar />
 
-      {/* Categories */}
-      <RootCategories />
+   
 
       {/* Main content */}
       <div className="flex flex-1 flex-col items-center text-center py-16 px-4 sm:px-8 md:px-12">
         <h1 className="text-4xl md:text-6xl text-red-500 font-extrabold mb-6 dark:text-white">
           Liste des Articles
         </h1>
-        <CarouselB />
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {isLoading ? (
             <Typography className="text-center text-gray-500">
@@ -71,10 +64,6 @@ export default function Home() {
             </Typography>
           )}
         </div>
-
-        <div className="mt-16">
-          <Faq />
-        </div>
         <Button
           color="light-blue"
           ripple={true}
@@ -82,9 +71,7 @@ export default function Home() {
         >
           Découvrir Plus
         </Button>
-        <div id="contact-us" className="mt-16">
-          <ContactUs />
-        </div>
+        
       </div>
 
       {/* Footer */}

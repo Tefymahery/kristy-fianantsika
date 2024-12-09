@@ -21,15 +21,16 @@ const NavbarAdmin = () => {
         { label: "Articles", href: "/admin/articles" },
         { label: "Users", href: "/admin/users" },
         { label: "Categories", href: "/admin/categories" },
+        { label : "Home: visitor", href:"/", class : "bg-green-200 rounded-lg p-1"},
       ].map((item, idx) => (
         <Typography
           key={idx}
           as="li"
           variant="small"
           color="blue-gray"
-          className="p-1 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+          className="p-1 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white rounded-lg"
         >
-          <Link href={item.href}>{item.label}</Link>
+          <Link href={item.href} className={item.class}>{item.label}</Link>
         </Typography>
       ))}
     </ul>

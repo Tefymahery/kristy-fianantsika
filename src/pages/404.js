@@ -1,6 +1,6 @@
 // pages/404.js
 import React from 'react';
-import  Navbar  from '../components/Navbar';  // Assure-toi d'importer ta Navbar
+import  Navbar  from '../components/NavbarSS';  // Assure-toi d'importer ta Navbar
 import  Footer  from '../components/Footer';  // Assure-toi d'importer ton Footer
 import Link from 'next/link';  // Utilise Next.js Link pour la navigation interne
 import ToHome from '@/components/IconButtonHome';
