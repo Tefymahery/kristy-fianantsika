@@ -1,4 +1,3 @@
-import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
 
 const SITEMAP = [
@@ -29,40 +28,33 @@ export default function FooterWithSitemap() {
         <div className="mx-auto grid w-full grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-4">
           {SITEMAP.map(({ title, links }, key) => (
             <div key={key} className="w-full">
-              <Typography
-                variant="small"
-                className="mb-4 font-bold uppercase opacity-50 dark:text-gray-300"
-              >
+              <h3 className="mb-4 font-bold uppercase text-gray-500 dark:text-gray-300">
                 {title}
-              </Typography>
+              </h3>
               <ul className="space-y-1">
                 {links.map((link, key) => (
-                  <Typography key={key} as="li" className="font-normal">
+                  <li key={key} className="font-normal">
                     <a
                       href="#"
                       className="inline-block py-1 pr-2 transition-transform hover:scale-105 dark:hover:text-gray-400"
                     >
                       {link}
                     </a>
-                  </Typography>
+                  </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
         <div className="flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between dark:border-gray-700">
-          <Typography
-            variant="small"
-            className="mb-4 text-center font-normal dark:text-gray-400 md:mb-0"
-          >
-            &copy; {currentYear} <a href="https://material-tailwind.com/">Material Tailwind</a>. All
-            Rights Reserved. 
+          <p className="mb-4 text-center font-normal dark:text-gray-400 md:mb-0">
+            &copy; {currentYear} <a href="https://example.com">Your Company</a>. All Rights Reserved. 
             <Link href="/admin/" passHref target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
                 Admin
             </Link>
-          </Typography>
+          </p>
           <div className="flex gap-4 text-black dark:text-white sm:justify-center">
-            <Typography as="a" href="#" className="opacity-80 transition-opacity hover:opacity-100">
+            <a href="#" className="opacity-80 transition-opacity hover:opacity-100">
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   fillRule="evenodd"
@@ -70,8 +62,8 @@ export default function FooterWithSitemap() {
                   clipRule="evenodd"
                 />
               </svg>
-            </Typography>
-            {/* Other social icons here */}
+            </a>
+            {/* Autres icônes sociales ici */}
           </div>
         </div>
       </div>
