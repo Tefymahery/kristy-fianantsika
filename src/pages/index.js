@@ -1,5 +1,5 @@
 import { Button, Card, Typography } from "@material-tailwind/react";
-import Navbar from "../components/Navbar";
+//import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ContactUs from "@/components/ContactUs";
 import RootCategories from "@/components/RootCartegories";
@@ -10,32 +10,37 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 // Charger Faq dynamiquement
-const Faq = dynamic(() => import("../components/Faq"), { ssr: false });
+//const Faq = dynamic(() => import("../components/Faq"), { ssr: false });
 
 export default function Home() {
-  const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  //const [articles, setArticles] = useState([]);
+  //const [isLoading, setIsLoading] = useState(false);
 
-  const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/articles`;
+  //const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/articles`;
 
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(API_URL)
-      .then((response) => setArticles(response.data))
-      .catch((error) => console.error(error))
-      .finally(() => setIsLoading(false));
-  }, [API_URL]);
+  
+  //useEffect(() => {
+    //setIsLoading(true);
+    //axios
+      //.get(API_URL)
+      //.then((response) => setArticles(response.data))
+      //.catch((error) => console.error(error))
+      //.finally(() => setIsLoading(false));
+  //}, [API_URL]); 
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900">
-      {/* Navbar */}
+      {/* Navbar 
       <Navbar />
+      */}
+      
 
-      {/* Categories */}
-      <RootCategories />
+      {/* Categories
+        <RootCategories />
+      */}
+      
 
-      {/* Main content */}
+      {/* Main content 
       <div className="flex flex-1 flex-col items-center text-center py-16 px-4 sm:px-8 md:px-12">
         <h1 className="text-4xl md:text-6xl text-red-500 font-extrabold mb-6 dark:text-white">
           Liste des Articles
@@ -86,7 +91,7 @@ export default function Home() {
           <ContactUs />
         </div>
       </div>
-
+      */}
       {/* Footer */}
       <Footer />
     </div>
