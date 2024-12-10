@@ -1,6 +1,7 @@
 //import { Button, Card, Typography } from "@material-tailwind/react";
 //import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SimpleCard from "../components/SimpleCard";
 //import ContactUs from "@/components/ContactUs";
 //import RootCategories from "@/components/RootCartegories";
 //import CarouselB from "../components/Carousel";
@@ -30,6 +31,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900">
+
+      {/* Navbar */}
+      <SimpleCard />
+
       {/* Navbar 
       <Navbar />
       */}
