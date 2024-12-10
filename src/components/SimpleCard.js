@@ -1,22 +1,22 @@
 // components/SimpleCard.js
-import { Card, Button, Typography } from "@material-tailwind/react";
 
 export default function SimpleCard() {
-  return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <Card className="w-96 shadow-lg rounded-lg">
-        <div className="p-6">
-          <Typography variant="h5" className="text-center mb-4">
-            Bienvenue sur mon site be !
-          </Typography>
-          <Typography className="text-center mb-6">
-            Ce composant est créé avec Material Tailwind. Il est simple et léger.
-          </Typography>
-          <Button variant="gradient" color="blue" fullWidth>
-            Découvrir Plus
-          </Button>
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="w-96 bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="p-6">
+            <h5 className="text-center text-2xl font-semibold text-gray-800 mb-4">
+              Bienvenue sur mon site !
+            </h5>
+            <p className="text-center text-gray-600 mb-6">
+              Ce composant est simple et léger, sans Material Tailwind.
+            </p>
+            <button className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+              Découvrir Plus
+            </button>
+          </div>
         </div>
-      </Card>
-    </div>
-  );
-}
+      </div>
+    );
+  }
+  
