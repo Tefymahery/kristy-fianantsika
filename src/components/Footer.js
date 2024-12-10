@@ -14,8 +14,8 @@ const SITEMAP = [
     links: ["Blog", "Newsletter", "Free Products", "Affiliate Program"],
   },
   {
-    title: "Products",
-    links: ["Templates", "UI Kits", "Icons", "Mockups"],
+    title: "Panel",
+    links: ["Templates", "UI Kits", "Icons", "Admin"],
   },
 ];
 
