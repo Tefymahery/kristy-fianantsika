@@ -1,13 +1,13 @@
-import { Button, Card, Typography } from "@material-tailwind/react";
+//import { Button, Card, Typography } from "@material-tailwind/react";
 //import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ContactUs from "@/components/ContactUs";
-import RootCategories from "@/components/RootCartegories";
-import CarouselB from "../components/Carousel";
-import dynamic from "next/dynamic";
-import Link from "next/link";
-import axios from "axios";
-import { useEffect, useState } from "react";
+//import ContactUs from "@/components/ContactUs";
+//import RootCategories from "@/components/RootCartegories";
+//import CarouselB from "../components/Carousel";
+//import dynamic from "next/dynamic";
+//import Link from "next/link";
+//import axios from "axios";
+//import { useEffect, useState } from "react";
 
 // Charger Faq dynamiquement
 //const Faq = dynamic(() => import("../components/Faq"), { ssr: false });
